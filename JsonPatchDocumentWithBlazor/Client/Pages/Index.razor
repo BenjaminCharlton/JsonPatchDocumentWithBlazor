@@ -1,0 +1,41 @@
+@page "/"
+@using JsonPatchDocumentWithBlazor.Shared
+@inject HttpClient HttpClient
+
+<h1>Book</h1>
+
+<p>This component demonstrates failing to send a JsonPatchDocument to the server.</p>
+
+<button @onclick="HandleClickAsync">Try it</button>
+
+@code
+{
+    [Parameter]
+    public int BookId { get; set; } = 101;
+
+    private async Task HandleClickAsync()
+    {
+        string newTitle = "How to make JsonPatchDocument work with Blazor - Second Edition";
+
+        var patchDocument = new JsonPatchDocument<Book>()
+            .Replace(c => c.Title, newTitle);
+
+        var json = JsonSerializer.Serialize(patchDocument);
+        var content = new StringContent(json, Encoding.UTF8, "application/json-patch+json");
+        var response = await HttpClient.PatchAsync($"https://localhost:44367/api/books/{BookId}", content);
+
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Handle success
+        }
+        else if (response.StatusCode == HttpStatusCode.NotFound)
+        {
+            // Handle not found
+        }
+        else
+        {
+            // Handle unexpected failures
+        }
+    }
+}
