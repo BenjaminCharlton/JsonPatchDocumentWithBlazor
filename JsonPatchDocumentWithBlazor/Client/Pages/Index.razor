@@ -8,6 +8,58 @@
 
 <button @onclick="HandleClickAsync">Try it</button>
 
+<h2>The patch document we shall send is</h2>
+
+<blockquote>
+    {"Operations":[{"value":"How to make JsonPatchDocument work with Blazor - Second Edition","OperationType":2,"path":"/Title","op":"replace","from":null}],"ContractResolver":{}}
+</blockquote>
+
+<h2>The Status Code we shall get back is 500, with the error message below.</h2>
+
+<blockquote>
+    System.NotSupportedException: Deserialization of interface types is not supported. Type 'Newtonsoft.Json.Serialization.IContractResolver'
+    at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DeserializeCreateObjectDelegateIsNull(Type invalidType)
+    at System.Text.Json.JsonSerializer.HandleStartObject(JsonSerializerOptions options, ReadStack& state)
+    at System.Text.Json.JsonSerializer.ReadCore(JsonSerializerOptions options, Utf8JsonReader& reader, ReadStack& readStack)
+    at System.Text.Json.JsonSerializer.ReadCore(JsonReaderState& readerState, Boolean isFinalBlock, ReadOnlySpan`1 buffer, JsonSerializerOptions options, ReadStack& readStack)
+    at System.Text.Json.JsonSerializer.ReadAsync[TValue](Stream utf8Json, Type returnType, JsonSerializerOptions options, CancellationToken cancellationToken)
+    at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+    at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonInputFormatter.ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
+    at Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinder.BindModelAsync(ModelBindingContext bindingContext)
+    at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value)
+    at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CreateBinderDelegate&gt;
+    g__Bind|0&gt;d.MoveNext()
+    --- End of stack trace from previous location where exception was thrown ---
+    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.&lt;InvokeInnerFilterAsync&gt;
+    g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.&lt;InvokeNextResourceFilter&gt;
+    g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+    --- End of stack trace from previous location where exception was thrown ---
+    at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.&lt;InvokeAsync&gt;
+    g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+    at Microsoft.AspNetCore.Routing.EndpointMiddleware.&lt;Invoke&gt;
+    g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+    at Microsoft.AspNetCore.Builder.Extensions.MapWhenMiddleware.Invoke(HttpContext context)
+    at Microsoft.AspNetCore.Builder.Extensions.MapMiddleware.Invoke(HttpContext context)
+    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+
+    HEADERS
+    =======
+    Accept: */*
+    Accept-Encoding: gzip, deflate, br
+    Cache-Control: no-cache
+    Connection: keep-alive
+    Content-Length: 175
+    Content-Type: application/json
+    Host: localhost:44367
+    User-Agent: PostmanRuntime/7.26.3
+    Postman-Token: b4444f41-b80f-4ef5-92d5-2416d68d471e
+
+</blockquote>
+
 @code
 {
     [Parameter]
